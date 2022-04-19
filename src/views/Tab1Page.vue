@@ -64,7 +64,7 @@ export default defineComponent({
     };
 
     const onDissmiss = () => {
-      console.log("HERE");
+      console.log("HERE ON DISMISSING");
     };
 
     return {

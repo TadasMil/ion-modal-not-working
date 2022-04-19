@@ -12,9 +12,15 @@
         </ion-toolbar>
       </ion-header>
 
-      <ion-text router-link="/tabs/tab1/tab1NestedPage">
-        Navigate to nested page
-      </ion-text>
+      <ion-button @click="setIsOpen"> Open Modal </ion-button>
+
+      <IonModal
+        trigger="open-modal"
+        :isOpen="isOpen"
+        @onDidDismiss="() => onDissmiss()"
+      >
+        <IonContent force-overscroll="false"> </IonContent>
+      </IonModal>
 
       <ExploreContainer name="Tab 1 page" />
     </ion-content>
@@ -22,14 +28,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import {
   IonPage,
   IonHeader,
   IonToolbar,
   IonTitle,
   IonContent,
-  IonText,
+  IonButton,
+  IonModal,
 } from "@ionic/vue";
 import ExploreContainer from "@/components/ExploreContainer.vue";
 
@@ -37,12 +44,47 @@ export default defineComponent({
   name: "Tab1Page",
   components: {
     ExploreContainer,
+    IonModal,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
     IonPage,
-    IonText,
+    IonButton,
+  },
+  setup() {
+    const isOpen = ref(false);
+
+    const setIsOpen = () => {
+      isOpen.value = true;
+    };
+
+    const setIsClosed = () => {
+      isOpen.value = false;
+    };
+
+    const onDissmiss = () => {
+      console.log("HERE");
+    };
+
+    return {
+      isOpen,
+      setIsOpen,
+      setIsClosed,
+      onDissmiss,
+    };
   },
 });
 </script>
+
+<style scoped>
+.ion-content {
+  --background: #f2f2f7;
+}
+
+ion-modal {
+  --width: 290px;
+  --height: 295px;
+  --border-radius: 8px;
+}
+</style>
